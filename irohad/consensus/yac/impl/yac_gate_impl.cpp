@@ -51,7 +51,6 @@ namespace iroha {
         log_ = logger::log("YacGate");
         block_creator_->on_block().subscribe([this](auto block) {
           auto bl = shared_model::proto::from_old(block);
-          auto tmp = bl.prevHash();
           this->vote(bl);
         });
       }
