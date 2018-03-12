@@ -21,7 +21,6 @@ add_library(hash
 
 target_link_libraries(hash
         common
-        optional
         ed25519
         )
 
