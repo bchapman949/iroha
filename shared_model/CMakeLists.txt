@@ -16,11 +16,11 @@ cmake_minimum_required(VERSION 3.5.1)
 
 PROJECT(shared_model C CXX)
 
-SET(IROHA_SCHEMA_DIR "${PROJECT_SOURCE_DIR}/../schema")
+SET(IROHA_SCHEMA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../schema")
 include_directories(
-        ${PROJECT_SOURCE_DIR}/../libs
+        ${CMAKE_CURRENT_SOURCE_DIR}/../libs
         ${IROHA_SCHEMA_DIR}
-        ${PROJECT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 if (NOT IROHA_ROOT_PROJECT)
@@ -30,15 +30,16 @@ if (NOT IROHA_ROOT_PROJECT)
     SET(CMAKE_CXX_FLAGS_DEBUG   "-g -Wextra -Wno-unused-parameter -Wno-deprecated-declarations -O0")
     SET(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
-    SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
+    SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Modules)
 
     add_definitions(-DDISABLE_BACKWARD)
 
     include(FeatureSummary)
-    include(cmake/functions.cmake)
-    include(cmake/dependencies.cmake)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/functions.cmake)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/dependencies.cmake)
         
-    add_subdirectory(../schema build)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../schema schema)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../libs libs)
 endif()
 add_library(old_model INTERFACE)
 
